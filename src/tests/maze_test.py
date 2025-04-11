@@ -46,6 +46,23 @@ class MazeTest(unittest.TestCase):
             for cell in row:
                 self.assertIsNotNone(cell)
 
+    def test_break_entrance_and_exit(self):
+        # Maze is a 2D Grid
+        maze = Maze(0, 0, 5, 5, 10, 10, False)
+        entrance_cell, exit_cell = maze.break_entrance_and_exit()
+
+        # Entrance Cell: The top wall is overlaid with the background color to visually erase it
+        self.assertTrue(entrance_cell.has_top_wall)
+        self.assertFalse(entrance_cell.has_bottom_wall)
+        self.assertFalse(entrance_cell.has_left_wall)
+        self.assertFalse(entrance_cell.has_right_wall)
+
+        # Exit Cell: The bottom wall is overlaid with the background color to visually erase it
+        self.assertTrue(exit_cell.has_bottom_wall)
+        self.assertFalse(exit_cell.has_left_wall)
+        self.assertFalse(exit_cell.has_right_wall)
+        self.assertFalse(exit_cell.has_top_wall)
+
 
 if __name__ == '__main__':
     unittest.main()
